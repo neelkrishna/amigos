@@ -1,10 +1,26 @@
 package com.learn.amigos.student;
 
-import java.time.LocalDate;
+import jakarta.persistence.*;
 
+import java.time.LocalDate;
+import java.time.Period;
+
+@Entity
+@Table
 public class Student {
+    @Id
+    @SequenceGenerator(
+            name = "student_sequence",
+            sequenceName = "student_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "student_sequence"
+    )
     private long id;
     private String name;
+    @Transient
     private int age;
     private LocalDate dob;
     private String email;
@@ -16,22 +32,18 @@ public class Student {
     // all attributes
     public Student(long id,
                    String name,
-                   int age,
                    LocalDate dob,
                    String email) {
         this.id = id;
         this.name = name;
-        this.age = age;
         this.dob = dob;
         this.email = email;
     }
     // all attributes except ID
     public Student(String name,
-                   int age,
                    LocalDate dob,
                    String email) {
         this.name = name;
-        this.age = age;
         this.dob = dob;
         this.email = email;
     }
@@ -54,7 +66,7 @@ public class Student {
     }
 
     public int getAge() {
-        return age;
+        return Period.between (this.dob, LocalDate.now()) .getYears();
     }
 
     public void setAge(int age) {

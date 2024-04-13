@@ -24,7 +24,13 @@ public class StudentService {
             throw new IllegalStateException("Taken");
         }
         studentRepository.save(student);
-        System.out.println(student.toString());
+    }
 
+    public void deleteStudent(Student student) {
+        Optional<Student> studentOptional = studentRepository.findStudentByEmail(student.getEmail());
+        if(studentOptional.isEmpty() || !studentOptional.get().equals(student)) {
+            throw new IllegalStateException("No such student");
+        }
+        studentRepository.delete(student);
     }
 }

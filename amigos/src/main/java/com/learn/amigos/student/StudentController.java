@@ -1,12 +1,8 @@
 package com.learn.amigos.student;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -27,6 +23,11 @@ public class StudentController {
     @PostMapping
     public void addNewStudent(@RequestBody Student student) {
         studentService.addNewStudent(student);
+    }
+
+    @DeleteMapping
+    public void deleteStudent(@RequestBody Student student) {
+        studentService.deleteStudent(student);
     }
     
 }
